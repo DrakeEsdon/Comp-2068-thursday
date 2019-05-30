@@ -1,13 +1,18 @@
+//As a note, a lot of the code used in this lab is from class. I hope this isint acedemic msconduct as our class example was very similar to what was being askec in the lab and this is the best way I know how to code this.
+
 const express = require('express');
+const path = require('path');
 
 const app = express();
 
-app.get('/', (req, res) => {
-   res.send('hey there world!'); 
-});
+// Our views path
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
-app.get('/about', (req, res) => {
-   res.send('I like star gazing at midnight.'); 
-});
+//our routes
+const routes = require('./routes.js');
+app.use('/', routes);
 
-app.listen(4000, () => console.log('Listening on 4000'));
+
+const port = (process.env.PORT || 4000);
+app.listen(4000, () => console.log(`Listening on ${port}`));
